@@ -26,8 +26,8 @@ logger = logging.getLogger()
 
 ###################### auth START ######################
 
-auth = tweepy.OAuthHandler("4iABPJcUW82h7W6c767Vg88ed", "VwFpjzoRDnffpunYx5dPN5FiE8IoHhv1h26lEzP0Ug4IslnAL1")
-auth.set_access_token("1271435160832139264-j7oBT3XROmQWC06R0YIleUfQJcE0pA", "u9qqerkHUFGHMWQKTmWpEVYLuPDXKB5fcQfv5x7pMcDUz")
+auth = tweepy.OAuthHandler()
+auth.set_access_token()
 
 # API object to use for everything
 api = tweepy.API(auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=True)
@@ -73,7 +73,7 @@ def main():
         for row in reader:
             print(str(row))
             api.update_status(str(row))
-            logger.info("Waiting...")
+            logger.info("Waiting ...")
             time.sleep(86400*2)  # wait before tweeting again
 
 
