@@ -12,8 +12,12 @@
 import tweepy
 import csv
 import logging
-from config import tw_api
+# from config import tw_api
+import random
+from datetime import datetime
 import time
+import re
+
 
 
 ###################### logger setup START ######################
@@ -23,11 +27,32 @@ logger = logging.getLogger()
 
 ###################### logger setup END ######################
 
+###################### tw_api function START ######################
+# this is a function that returns the api so that we can
+# do everything using it, reading and writing for example
+
+def tw_api():
+    # performing authentication and verifying it
+    auth = tweepy.OAuthHandler("4iABPJcUW82h7W6c767Vg88ed", "VwFpjzoRDnffpunYx5dPN5FiE8IoHhv1h26lEzP0Ug4IslnAL1")
+    auth.set_access_token("1271435160832139264-WyJV9rUHqjXGYzmI6ln7SYifKkEnKU",
+                          "h4xyW1s2YsJkm6mB62WKYzQz8IRm6sCdc2l79sk2sSPEV")
+    api = tweepy.API(auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=True)
+    try:
+        api.verify_credentials()
+    except Exception as e:
+        logger.error("Error while creating API", exc_info=True)
+        raise e
+    logger.info("tw_api successfully created")
+    return api
+
+
+###################### tw_api function END ######################
 
 ###################### auth START ######################
 
-auth = tweepy.OAuthHandler()
-auth.set_access_token()
+auth = tweepy.OAuthHandler("4iABPJcUW82h7W6c767Vg88ed", "VwFpjzoRDnffpunYx5dPN5FiE8IoHhv1h26lEzP0Ug4IslnAL1")
+auth.set_access_token("1271435160832139264-WyJV9rUHqjXGYzmI6ln7SYifKkEnKU",
+                      "h4xyW1s2YsJkm6mB62WKYzQz8IRm6sCdc2l79sk2sSPEV")
 
 # API object to use for everything
 api = tweepy.API(auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=True)
@@ -49,33 +74,52 @@ t_line = api.home_timeline()
 for tweet in t_line:
     logger.info("timelines tweets are: ", f"{tweet.user.name} said {tweet.text}")
 
+
 ###################### reading timeline END ######################
 
 
-api = tw_api()
-logger.info("the api object is: ", str(api))
+"""
+###################### cleaning tweets START ######################
+
+def clean_tweet(tweets): # function to clean tweet text by removing links, special characters using regex
+    return ' '.join(re.sub("(@[A-Za-z0-9]+)|([^0-9A-Za-z \t]) (\w+:\/\/\S+)", " ", tweets).split())
+
+
+###################### cleaning tweets START ######################
 
 ###################### load source START ######################
 
 
 with open("source.csv", encoding='iso-8859-1') as data:
-    reader = csv.reader(data)
+    tweets = csv.reader(data)
+    clean_tweet(tweets)
+    print(tweets)
 
 ###################### load source END ######################
-
+"""
 
 ###################### def main START ######################
+
 
 
 def main():
     with open("source.csv", encoding='iso-8859-1') as data:
         reader = csv.reader(data)
-        for row in reader:
-            print(str(row))
-            api.update_status(str(row))
-            logger.info("Waiting ...")
-            time.sleep(86400*2)  # wait before tweeting again
 
+        for index, row in enumerate(reader):
+            if index == 0:
+                now = str(datetime.now())
+                api.update_status(row + [" - ", now])
+                print("updated status with: ", row + [" - ", now])
+                time.sleep(60 * 60 * 3)  # wait before tweeting again
+            else:
+                r = random.randint(0, index)
+                print(row)
+                if r != 0:
+                    now = str(datetime.now())
+                    api.update_status(row + [" - ", now])
+                    print("else updated status with: ", row, r, now)
+                    time.sleep(60 * 60 * 3)  # wait before tweeting again
 
 ###################### def main END ######################
 
@@ -83,6 +127,5 @@ def main():
 ###################### running the application ######################
 if __name__ == "__main__":
     main()
-
 
 
