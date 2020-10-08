@@ -24,9 +24,9 @@ logger = logging.getLogger()
 
 def tw_api():
     # performing authentication and verifying it
-    auth = tweepy.OAuthHandler("4iABPJcUW82h7W6c767Vg88ed", "VwFpjzoRDnffpunYx5dPN5FiE8IoHhv1h26lEzP0Ug4IslnAL1")
-    auth.set_access_token("1271435160832139264-6HqwVaMSPsuvycwwdFOz8LkSqX0XU3",
-                          "Jb8Zf586OZAkJuYwh6MeqYESJ7rXqjXZtOpJBqYfDcSyv")
+    auth = tweepy.OAuthHandler("xxxxxxxxxxxxxxxxxx", "xxxx")
+    auth.set_access_token("xxxx-xxx",
+                          "xxxxx")
     api = tweepy.API(auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=True)
     try:
         api.verify_credentials()
