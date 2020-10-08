@@ -33,9 +33,9 @@ logger = logging.getLogger()
 
 def tw_api():
     # performing authentication and verifying it
-    auth = tweepy.OAuthHandler("4iABPJcUW82h7W6c767Vg88ed", "VwFpjzoRDnffpunYx5dPN5FiE8IoHhv1h26lEzP0Ug4IslnAL1")
-    auth.set_access_token("1271435160832139264-WyJV9rUHqjXGYzmI6ln7SYifKkEnKU",
-                          "h4xyW1s2YsJkm6mB62WKYzQz8IRm6sCdc2l79sk2sSPEV")
+    auth = tweepy.OAuthHandler("xxx", "xxx")
+    auth.set_access_token("xxx-,xxx",
+                          "xxx")
     api = tweepy.API(auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=True)
     try:
         api.verify_credentials()
@@ -50,9 +50,9 @@ def tw_api():
 
 ###################### auth START ######################
 '''
-auth = tweepy.OAuthHandler("4iABPJcUW82h7W6c767Vg88ed", "VwFpjzoRDnffpunYx5dPN5FiE8IoHhv1h26lEzP0Ug4IslnAL1")
-auth.set_access_token("1271435160832139264-WyJV9rUHqjXGYzmI6ln7SYifKkEnKU",
-                      "h4xyW1s2YsJkm6mB62WKYzQz8IRm6sCdc2l79sk2sSPEV")
+auth = tweepy.OAuthHandler("xxx", "xxx")
+auth.set_access_token("xxx-xxx",
+                      "xxx")
 
 # API object to use for everything
 api = tweepy.API(auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=True)
