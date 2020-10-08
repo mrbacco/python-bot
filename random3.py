@@ -27,9 +27,9 @@ logger = logging.getLogger()
 
 ###################### tw_api func START ######################
 
-auth = tweepy.OAuthHandler("RDRABmGkIcmStUA0GG54ALaAn", "uFU9RG9ALwsdwGQKgUwcwVD8KD3EePVAsgDv37oHTuU1OZTFl2")
-auth.set_access_token("1271435160832139264-hWevLjXGmImCnyqyYnndbUC2114YIj",
-                          "35jPeyxVbP5IhU0AvSnD7UwDmpuG2fuaFIbggSlhSKkqO")
+auth = tweepy.OAuthHandler("xxx", "xxx")
+auth.set_access_token("xxx-xxx",
+                          "xxx")
 
 # API object to use for everything
 api = tweepy.API(auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=True)
