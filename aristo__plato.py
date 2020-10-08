@@ -49,7 +49,7 @@ def tw_api():
 ###################### tw_api function END ######################
 
 ###################### auth START ######################
-
+'''
 auth = tweepy.OAuthHandler("4iABPJcUW82h7W6c767Vg88ed", "VwFpjzoRDnffpunYx5dPN5FiE8IoHhv1h26lEzP0Ug4IslnAL1")
 auth.set_access_token("1271435160832139264-WyJV9rUHqjXGYzmI6ln7SYifKkEnKU",
                       "h4xyW1s2YsJkm6mB62WKYzQz8IRm6sCdc2l79sk2sSPEV")
@@ -62,6 +62,7 @@ try:
     logger.info("logged in, thanks")
 except:
     logger.info("errors during authentication, try again")
+'''
 
 # test tweet
 # api.update_status("The greatest wealth is to live content with little")
@@ -70,9 +71,11 @@ except:
 
 ###################### reading timeline START ######################
 
+'''
 t_line = api.home_timeline()
 for tweet in t_line:
     logger.info("timelines tweets are: ", f"{tweet.user.name} said {tweet.text}")
+'''
 
 
 ###################### reading timeline END ######################
@@ -100,26 +103,27 @@ with open("source.csv", encoding='iso-8859-1') as data:
 
 ###################### def main START ######################
 
-
-
 def main():
-    with open("source.csv", encoding='iso-8859-1') as data:
+    with open("source.csv",  mode='r', errors="ignore") as data:
         reader = csv.reader(data)
-
         for index, row in enumerate(reader):
-            if index == 0:
+
+            if index != 0:
                 now = str(datetime.now())
-                api.update_status(row + [" - ", now])
-                print("updated status with: ", row + [" - ", now])
-                time.sleep(60 * 60 * 3)  # wait before tweeting again
+                chosen_row = row
+                # api.update_status(chosen_row + [" - ", now])
+                print("Hey, updated status with: ", chosen_row + [" - ", now])
+                time.sleep( 0 )  # wait before tweeting again
+            '''
             else:
                 r = random.randint(0, index)
                 print(row)
-                if r != 0:
+                if r >= 0:
                     now = str(datetime.now())
                     api.update_status(row + [" - ", now])
                     print("else updated status with: ", row, r, now)
-                    time.sleep(60 * 60 * 3)  # wait before tweeting again
+                    time.sleep(60 * 60 )  # wait before tweeting again
+            '''
 
 ###################### def main END ######################
 
