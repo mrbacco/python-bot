@@ -101,35 +101,59 @@ with open("source.csv", encoding='iso-8859-1') as data:
 ###################### load source END ######################
 """
 
-###################### def main START ######################
+###################### Tweet update START ######################
 
-def main():
-    with open("source.csv",  mode='r', errors="ignore") as data:
-        reader = csv.reader(data)
-        for index, row in enumerate(reader):
+with open('source.csv', "r", errors="ignore", newline='') as f1:
+    spamreader = csv.reader(f1, delimiter=',')
+    source=[i for row in spamreader for i in row]
 
-            if index != 0:
-                now = str(datetime.now())
-                chosen_row = row
-                # api.update_status(chosen_row + [" - ", now])
-                print("Hey, updated status with: ", chosen_row + [" - ", now])
-                time.sleep( 0 )  # wait before tweeting again
-            '''
-            else:
-                r = random.randint(0, index)
-                print(row)
-                if r >= 0:
-                    now = str(datetime.now())
-                    api.update_status(row + [" - ", now])
-                    print("else updated status with: ", row, r, now)
-                    time.sleep(60 * 60 )  # wait before tweeting again
-            '''
+with open('adjectives.txt', "r") as f2:
+    spamreader = csv.reader(f2, delimiter=',')
+    adj=[i for row in spamreader for i in row]
 
-###################### def main END ######################
+print(len(source))
+print(len(adj))
+
+marks = ["!", ".", ".", "?", ".", "!!!", ".", ".", "."]
+
+n = 1
+while n >= 0:
+
+    num1 = random.randrange(0,67248)    # source
+    num2 = random.randrange(0,9)        # marks
+    num3 = random.randrange(0,5301)     # adj
+    num4 = random.randrange(0,5301)     # adj2
+
+    x = random.randrange(0,12)
+
+    now = str(datetime.now().replace(microsecond=0))
+    
+    sentence1 = ("%s %s "%(random.choice(source), random.choice(adj)))
+    sentence2 = (adj[num3] + ": " + source[num1] + " " + marks[num2])
+    sentence3 = (now + ": thought of the moment ... " + adj[num4])
+
+    #print(sentence1 + "\n")
+    #print(sentence2 + "\n")
+    #print(sentence3 + "\n")
+
+    if x % 3 ==0:
+        print("\n", "1 ... status update with: ", "\n",sentence1)
+        api.update_status(sentence1)
+        print("x = " + str(x))
+        time.sleep(2)
+    
+    if x % 5 ==0:
+        print("\n", "2 ... status update with: ", "\n",sentence2)
+        api.update_status(sentence2)
+        print("x = " + str(x))
+        time.sleep(2)
+
+    else:
+        print("\n", "3 ... status update with: ", "\n",sentence3)
+        api.update_status(sentence3)
+        print("x = " + str(x))
+        time.sleep(2)
 
 
-###################### running the application ######################
-if __name__ == "__main__":
-    main()
 
-
+###################### Tweet update END ######################
