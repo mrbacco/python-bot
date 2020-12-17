@@ -140,19 +140,19 @@ while n >= 0:
         print("\n", "1 ... status update with: ", "\n",sentence1)
         api.update_status(sentence1)
         print("x = " + str(x))
-        time.sleep(2)
+        time.sleep(244)
     
     if x % 5 ==0:
         print("\n", "2 ... status update with: ", "\n",sentence2)
         api.update_status(sentence2)
         print("x = " + str(x))
-        time.sleep(2)
+        time.sleep(60*43)
 
     else:
         print("\n", "3 ... status update with: ", "\n",sentence3)
         api.update_status(sentence3)
         print("x = " + str(x))
-        time.sleep(2)
+        time.sleep(4442)
 
 
 
